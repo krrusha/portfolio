@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Krusha Shah – Portfolio</title>
+
+  <!-- Fonts chosen to closely match the look in the reference -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#525252;
+      --border:#e9e9e9;
+      --accent:#111111;
+      --maxw:760px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--fg);
+      background:var(--bg);
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:48px 24px 96px;
+    }
+
+    /* Header */
+    .name{
+      font-family: "Bubblegum Sans", cursive;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 52px;
+      line-height:0.95;
+      letter-spacing:.2px;
+      margin:8px 0 18px;
+    }
+    .name span{display:block}
+
+    .blurb{
+      max-width:350px;
+      font-size:20px;
+      color:var(--muted);
+      margin:0 0 18px;
+    }
+
+    .icons{
+    display:flex;
+    gap:18px;
+    margin:10px 0 36px;
+    }
+    .icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;height:32px;
+    color:var(--fg);
+    text-decoration:none;
+    transition:transform .08s ease, background .2s ease;
+    overflow:hidden; /* keep hover scale neatly inside */
+    }
+    .icon:hover{transform:translateY(-1px); background:#f7f7f7}
+    .icon img{width:22px;height:22px;display:block;object-fit:contain;aspect-ratio:1/1;transform:scale(1);transition:transform .15s ease}
+    .icon:hover img{transform:scale(1.2)}
+
+    h2{
+      font-family:"Cabin", Inter, system-ui;
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size:26px;
+      margin:28px 0 16px;
+    }
+
+    .experiment-header{
+      font-family:"Cabin", Inter, system-ui;
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size:26px;
+      margin:28px 0 16px;
+    }
+
+    .experiments{margin-top:8px}
+    .item{display:grid; grid-template-columns:36px 1fr; column-gap:14px; padding:18px 0; border-top:1px solid var(--border)}
+    .item:first-child{border-top:0}
+
+    .glyph{
+      width:36px;height:36px; display:flex; align-items:center; justify-content:center;
+      border:1.6px solid var(--fg); border-radius:6px;
+      font-size:18px;
+    }
+
+    .item h3{margin:0 0 4px; font-size:14px; font-weight:700; text-transform:none; letter-spacing:.2px}
+    .item h3 .date{font-weight:600; color:var(--muted)}
+    .item p{margin:0; color:var(--muted); font-size:13.5px; max-width:600px}
+
+    /* Subtle overall left alignment and airy feel */
+    .air{margin-top:6px}
+
+    .social{margin:10px 0 36px}
+    .resume-link{font-weight:600;color:var(--gh-link,#1f6feb);text-decoration:none;border-bottom:1.5px solid currentColor}
+    .resume-link:hover{opacity:.9}
+
+    .experiments.gh{margin-top:22px}
+    .experiments.gh .gh-list{display:grid;gap:22px}
+    .experiments.gh .gh-card{border:1px solid var(--gh-border,#8b949e);border-radius:12px;padding:16px 18px;color:var(--gh-text,#c9d1d9)}
+    .experiments.gh .gh-head{display:flex;justify-content:space-between;gap:12px}
+    .experiments.gh .gh-left{display:flex;gap:10px;align-items:center}
+    .experiments.gh .gh-repo-icon{width:16px;height:16px;border:1px solid var(--gh-border,#30363d);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:var(--gh-surface,#161b22)}
+    .experiments.gh .gh-title{font-size:18px;font-weight:600;line-height:1;}
+    .experiments.gh .gh-title .owner{color:var(--gh-text,#111111);opacity:.9}
+    .experiments.gh .gh-title a.repo{text-decoration: underline;color:var(--gh-link,#111111);}
+    .experiments.gh .gh-title .repo-name{color:var(--gh-link,#1f6feb);}
+
+    .experiments.gh .gh-actions{display:flex;gap:8px}
+    .experiments.gh .gh-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gh-border,#30363d);background:var(--gh-surface,#161b22);color:var(--gh-text,#c9d1d9);padding:4px 10px;border-radius:6px;font-size:13px;cursor:pointer}
+    .experiments.gh .gh-btn:hover{background:#1b2130}
+    .experiments.gh .gh-desc{color:var(--gh-muted,#111111);margin:10px 0 12px;font-size:14px}
+    .experiments.gh .gh-meta{display:flex;gap:18px;align-items:center;color:var(--gh-muted,#8b949e);font-size:12.5px}
+    .experiments.gh .gh-meta .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;background:#f1e05a}
+    .experiments.gh .gh-kicker{display:inline-flex;align-items:center;gap:6px}
+    .experiments.gh .gh-kicker.star:before{content:'★'}
+    .experiments.gh .gh-kicker.fork:before{content:'⑂'}
+
+    .cta{font-weight:600;text-decoration:none;border-bottom:1.5px solid currentColor}
+    .cta:hover{transform:translateY(-1px)}
+
+    /* Responsiveness */
+    @media (min-width:960px){
+      .wrap{padding-top:64px}
+      .name{font-size:52px}
+    }
+    @media (max-width:420px){
+      .name{font-size:32px}
+      .icons{gap:12px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="name">
+      <span>Krusha</span>
+      <span>Shah</span>
+    </div>
+
+    <p class="blurb">
+      I’m a self-taught data analyst who wants to help people tell better stories with their data.
+    </p>
+
+    <div class="social">
+        <a class="resume-link" href="/resume.pdf" target="_blank" rel="noopener">View resume →</a>
+        <div class="icons" aria-label="Social links">
+        <a class="icon" href="#" aria-label="LinkedIn">
+        <img src="https://krrusha.github.io/portfolio/assets/linkedin.png" alt="LinkedIn" />
+        </a>
+        <a class="icon" href="#" aria-label="Email">
+        <img src="https://krrusha.github.io/portfolio/assets/mail.png" alt="Email" />
+        </a>
+        <a class="icon" href="#" aria-label="GitHub">
+        <img src="https://krrusha.github.io/portfolio/assets/github.png" alt="GitHub" />
+        </a>
+        </div>
+        </div>
+
+    <div class="experiment-header">Data Projects</div>
+
+    <section class="experiments gh">
+        <div class="gh-list">
+        <article class="gh-card">
+        <div class="gh-head">
+        <div class="gh-left">
+        <div class="gh-title">
+            <a class="repo" href="https://krrusha.github.io/connecticut-real-estate-analysis/analysis.html"><span class="owner">krrusha.github.io</span> / <span class="repo-name">connecticut-real-estate-analysis</span></a>
+        </div>
+        </div>
+        </div>
+        <p class="gh-desc">Analyzing trends in the Real Estate market of Connecticut, I learnt how the data highlights the effects of the 2008 financial crisis on Connecticut's properties. I drew other insights from this analysis including trends showing the current affordability concerns and its effect in reducing property demand.</p>
+        </article>
+
+
+        <article class="gh-card">
+        <div class="gh-head">
+        <div class="gh-left">
+        <div class="gh-title">
+            <a class="repo" href="https://krrusha.github.io/san-francisco-air-traffic-analysis/analysis.html"><span class="owner">krrusha.github.io</span> / <span class="repo-name">san-francisco-air-traffic-analysis</span></a>
+        </div>
+        </div>
+        </div>
+        <p class="gh-desc">Analyzing the San Francisco Air Passenger traffic data, I observed how severly COVID-19 affected the travel numbers, and how the recovery to pre-pandemic highs is slow but gradual. I was able to create visualizations around the popularity trends of Airlines and SFO transit traffic in general.</p>
+        </article>
+  </main>
+</body>
+</html>
