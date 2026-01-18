@@ -5,65 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Krusha Shah – Portfolio</title>
 
-  <!-- Fonts chosen to closely match the look in the reference -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#ffffff;
-      --fg:#111111;
-      --muted:#525252;
-      --border:#e9e9e9;
-      --accent:#111111;
-      --maxw:760px;
-    }
+  :root{
+    --bg:#ffffff;
+    --fg:#111111;
+    --muted:#525252;
+    --border:#e9e9e9;
+    --maxw:760px;
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--fg);
-      background:var(--bg);
-      line-height:1.55;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+    --tree-line:#d9d9d9;
+    --tree-text:#1a1a1a;
+    --tree-muted:#5d5d5d;
+  }
 
-    .wrap{
-      max-width:var(--maxw);
-      margin:0 auto;
-      padding:48px 24px 96px;
-    }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color:var(--fg);
+    background:var(--bg);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
 
-    /* Header */
-    .name{
-      font-family: "Bubblegum Sans", cursive;
-      font-weight: 400;
-      font-style: normal;
-      font-size: 52px;
-      line-height:0.95;
-      letter-spacing:.2px;
-      margin:8px 0 18px;
-    }
-    .name span{display:block}
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:56px 24px 96px;
+  }
 
-    .blurb{
-      max-width:350px;
-      font-size:20px;
-      color:var(--muted);
-      margin:0 0 18px;
-    }
+  /* =========================
+     HEADER: left text + right photo (responsive)
+     ========================= */
+  .top{
+    display:flex;
+    align-items:flex-start;
+    gap:40px;
+  }
+  .top-left{
+    min-width:0;
+    flex:1 1 auto;
+  }
 
-    .icons{
+  .profile-col{
+    flex:0 0 220px;
+    max-width:240px;
+  }
+
+  /* Blob border wrapper */
+  .photo-shell{
+    width:100%;
+    aspect-ratio:1/1;
+    padding:10px; /* border thickness */
+    background:#e6e6e6; /* border color */
+    border-radius: 58% 42% 46% 54% / 54% 46% 56% 44%;
+    box-shadow: 0 14px 34px rgba(0,0,0,.10);
+    transform: rotate(-2deg);
+    /* animation: floaty 4.2s ease-in-out infinite; */
+  }
+
+  .photo-blob{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    border-radius: 54% 46% 42% 58% / 50% 54% 46% 50%;
+    transform: rotate(2deg);
+  }
+
+  @keyframes floaty{
+    0%,100%{transform: rotate(-2deg) translateY(0)}
+    50%{transform: rotate(-2deg) translateY(-6px)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .photo-shell{animation:none}
+  }
+
+  /* Stack photo on top for small screens */
+  @media (max-width:720px){
+    .top{flex-direction:column; gap:18px}
+    .profile-col{
+      order:-1; /* photo above text */
+      flex:0 0 auto;
+      max-width:100px;
+      width:min(100px, 72vw);
+      margin-bottom:-5px;
+    }
+  }
+
+  /* =========================
+     TYPOGRAPHY / HEADER CONTENT (ONE FONT EVERYWHERE)
+     ========================= */
+  .name{
+    font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    font-weight:800;
+    font-style:normal;
+    font-size:clamp(44px, 6.2vw, 78px); /* responsive */
+    line-height:0.95;
+    letter-spacing:-0.4px;
+    margin:8px 0 18px;
+  }
+  .name span{display:block}
+
+  .blurb{
+    max-width:360px;
+    font-size:20px;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+
+  .social{margin:10px 0 8px}
+  .resume-link{
+    font-weight:600;
+    color:var(--gh-link,#1f6feb);
+    text-decoration:none;
+    border-bottom:1.5px solid currentColor
+  }
+  .resume-link:hover{opacity:.9}
+
+  .icons{
     display:flex;
     gap:18px;
-    margin:10px 0 36px;
-    }
-    .icon{
+    margin:14px 0 18px;
+  }
+  .icon{
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -71,162 +143,230 @@
     color:var(--fg);
     text-decoration:none;
     transition:transform .08s ease, background .2s ease;
-    overflow:hidden; /* keep hover scale neatly inside */
-    }
-    .icon:hover{transform:translateY(-1px); background:#f7f7f7}
-    .icon img{width:22px;height:22px;display:block;object-fit:contain;aspect-ratio:1/1;transform:scale(1);transition:transform .15s ease}
-    .icon:hover img{transform:scale(1.2)}
+    overflow:hidden;
+    border-radius:8px;
+  }
+  .icon:hover{transform:translateY(-1px); background:#f7f7f7}
+  .icon img{width:22px;height:22px;display:block;object-fit:contain;aspect-ratio:1/1;transform:scale(1);transition:transform .15s ease}
+  .icon:hover img{transform:scale(1.2)}
 
-    h2{
-      font-family:"Cabin", Inter, system-ui;
-      font-weight:800;
-      letter-spacing:.3px;
-      font-size:26px;
-      margin:28px 0 16px;
-    }
+  /* =========================
+     SECTION HEADER
+     ========================= */
+  .experiment-header{
+    font-family:"Cabin", system-ui;
+    font-weight:800;
+    letter-spacing:.3px;
+    font-size:26px;
+    margin:34px 0 10px;
+  }
 
-    .experiment-header{
-      font-family:"Cabin", Inter, system-ui;
-      font-weight:800;
-      letter-spacing:.3px;
-      font-size:26px;
-      margin:28px 0 16px;
-    }
+  /* =========================
+     VSCode-ish TREE (descriptions aligned with filename)
+     ========================= */
+  .tree-wrap{
+    position:relative;
+    margin-top:6px;
+    padding-top:10px;
+    border-top:1px solid var(--border);
+  }
+  .tree-wrap::before{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:-14px;
+    height:18px;
+    border-left:1px solid var(--tree-line);
+  }
 
-    .experiments{margin-top:8px}
-    .item{display:grid; grid-template-columns:36px 1fr; column-gap:14px; padding:18px 0; border-top:1px solid var(--border)}
-    .item:first-child{border-top:0}
+  .tree{
+    color:var(--tree-text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size:14px;
+  }
+  .tree ul{list-style:none;margin:0;padding-left:0}
+  .tree li{position:relative;padding:8px 0 8px 30px}
+  .tree li::before{
+    content:"";
+    position:absolute;
+    left:14px; top:0; bottom:0;
+    border-left:1px solid var(--tree-line);
+  }
+  .tree li::after{
+    content:"";
+    position:absolute;
+    left:14px; top:18px;
+    width:14px;
+    border-top:1px solid var(--tree-line);
+  }
+  .tree li:last-child::before{bottom:18px}
+  .tree ul ul{margin-left:14px;padding-left:10px}
 
-    .glyph{
-      width:36px;height:36px; display:flex; align-items:center; justify-content:center;
-      border:1.6px solid var(--fg); border-radius:6px;
-      font-size:18px;
-    }
+  /* Grid so description aligns under filename text (not icon) */
+  .entry{
+    display:grid;
+    grid-template-columns:18px 1fr;
+    column-gap:8px;
+    align-items:center;
+    min-width:0;
+  }
+  .ico{width:18px;text-align:center;opacity:.95}
+  .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .label a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(17,17,17,.25)}
+  .label a:hover{border-bottom-color:rgba(17,17,17,.8)}
+  .desc{
+    grid-column:2;
+    margin-top:6px;
+    color:var(--tree-muted);
+    font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    font-size:13.5px;
+    line-height:1.45;
+    max-width:620px;
+  }
 
-    .item h3{margin:0 0 4px; font-size:14px; font-weight:700; text-transform:none; letter-spacing:.2px}
-    .item h3 .date{font-weight:600; color:var(--muted)}
-    .item p{margin:0; color:var(--muted); font-size:13.5px; max-width:600px}
+  /* Small tweaks */
+  @media (min-width:960px){
+    .wrap{padding-top:64px}
+  }
+  @media (max-width:420px){
+    .icons{gap:12px}
+  }
+</style>
 
-    /* Subtle overall left alignment and airy feel */
-    .air{margin-top:6px}
-
-    .social{margin:10px 0 36px}
-    .resume-link{font-weight:600;color:var(--gh-link,#1f6feb);text-decoration:none;border-bottom:1.5px solid currentColor}
-    .resume-link:hover{opacity:.9}
-
-    .experiments.gh{margin-top:22px}
-    .experiments.gh .gh-list{display:grid;gap:22px}
-    .experiments.gh .gh-card{border:1px solid var(--gh-border,#8b949e);border-radius:12px;padding:16px 18px;color:var(--gh-text,#c9d1d9)}
-    .experiments.gh .gh-head{display:flex;justify-content:space-between;gap:12px}
-    .experiments.gh .gh-left{display:flex;gap:10px;align-items:center}
-    .experiments.gh .gh-repo-icon{width:16px;height:16px;border:1px solid var(--gh-border,#30363d);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:var(--gh-surface,#161b22)}
-    .experiments.gh .gh-title{font-size:18px;font-weight:600;line-height:1;}
-    .experiments.gh .gh-title .owner{color:var(--gh-text,#111111);opacity:.9}
-    .experiments.gh .gh-title a.repo{text-decoration: underline;color:var(--gh-link,#111111);}
-    .experiments.gh .gh-title .repo-name{color:var(--gh-link,#1f6feb);}
-
-    .experiments.gh .gh-actions{display:flex;gap:8px}
-    .experiments.gh .gh-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gh-border,#30363d);background:var(--gh-surface,#161b22);color:var(--gh-text,#c9d1d9);padding:4px 10px;border-radius:6px;font-size:13px;cursor:pointer}
-    .experiments.gh .gh-btn:hover{background:#1b2130}
-    .experiments.gh .gh-desc{color:var(--gh-muted,#111111);margin:10px 0 12px;font-size:14px}
-    .experiments.gh .gh-meta{display:flex;gap:18px;align-items:center;color:var(--gh-muted,#8b949e);font-size:12.5px}
-    .experiments.gh .gh-meta .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;background:#f1e05a}
-    .experiments.gh .gh-kicker{display:inline-flex;align-items:center;gap:6px}
-    .experiments.gh .gh-kicker.star:before{content:'★'}
-    .experiments.gh .gh-kicker.fork:before{content:'⑂'}
-
-    .cta{font-weight:600;text-decoration:none;border-bottom:1.5px solid currentColor}
-    .cta:hover{transform:translateY(-1px)}
-
-    /* Responsiveness */
-    @media (min-width:960px){
-      .wrap{padding-top:64px}
-      .name{font-size:52px}
-    }
-    @media (max-width:420px){
-      .name{font-size:32px}
-      .icons{gap:12px}
-    }
-  </style>
 </head>
+
 <body>
   <main class="wrap">
-    <div class="name">
-      <span>Krusha</span>
-      <span>Shah</span>
+
+    <!-- HEADER: Text on left, photo on right -->
+    <div class="top">
+      <div class="top-left">
+        <div class="name">
+          <span>Krusha</span>
+          <span>Shah</span>
+        </div>
+
+        <p class="blurb">
+          I’m a self-taught data analyst who wants to help people tell better stories with their data.
+        </p>
+
+        <div class="social">
+          <a class="resume-link" href="/resume.pdf" target="_blank" rel="noopener">View resume</a>
+
+          <div class="icons" aria-label="Social links">
+            <a class="icon" href="https://www.linkedin.com/in/krusha--shah/" aria-label="LinkedIn">
+              <img src="https://github.com/krrusha/portfolio/blob/main/assets/linkedin.png" alt="LinkedIn" />
+            </a>
+            <a class="icon" href="mailto:krusha.shah30@gmail.com" aria-label="Email">
+              <img src="https://github.com/krrusha/portfolio/blob/main/assets/mail.png" alt="Email" />
+            </a>
+            <a class="icon" href="https://github.com/krrusha" aria-label="GitHub">
+              <img src="https://github.com/krrusha/portfolio/blob/main/assets/github.png" alt="GitHub" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Replace src with your actual photo path/URL -->
+      <aside class="profile-col" aria-label="Profile photo">
+        <div class="photo-shell">
+          <img class="photo-blob" src="assets/profile.jpg" alt="Profile photo of Krusha Shah" />
+        </div>
+      </aside>
     </div>
 
-    <p class="blurb">
-      I’m a self-taught data analyst who wants to help people tell better stories with their data.
-    </p>
+    <div class="experiment-header">Projects</div>
 
-    <div class="social">
-        <a class="resume-link" href="/resume.pdf" target="_blank" rel="noopener">View resume →</a>
-        <div class="icons" aria-label="Social links">
-        <a class="icon" href="#" aria-label="LinkedIn">
-        <img src="https://krrusha.github.io/portfolio/assets/linkedin.png" alt="LinkedIn" />
-        </a>
-        <a class="icon" href="#" aria-label="Email">
-        <img src="https://krrusha.github.io/portfolio/assets/mail.png" alt="Email" />
-        </a>
-        <a class="icon" href="#" aria-label="GitHub">
-        <img src="https://krrusha.github.io/portfolio/assets/github.png" alt="GitHub" />
-        </a>
-        </div>
-        </div>
+    <section class="tree-wrap" aria-label="Project hierarchy">
+      <div class="tree">
+        <ul>
+          <li>
+            <div class="entry">
+              <span class="ico">📁</span>
+              <span class="label">python</span>
+            </div>
 
-    <div class="experiment-header">Data Projects</div>
+            <ul>
+              <li>
+                <div class="entry">
+                  <span class="ico">📄</span>
+                  <span class="label">
+                    <a href="https://github.com/krrusha/Connecticut-Real-Estate-Analysis/blob/main/analysis.html" target="_blank" rel="noopener">
+                      connecticut-real-estate-analysis
+                    </a>
+                  </span>
+                  <div class="desc">
+                    Analyzing trends in Connecticut real estate, including effects around the 2008 financial crisis and later affordability-driven demand shifts.
+                  </div>
+                </div>
+              </li>
 
-    <section class="experiments gh">
-        <div class="gh-list">
-        <article class="gh-card">
-        <div class="gh-head">
-        <div class="gh-left">
-        <div class="gh-title">
-            <a class="repo" href="https://krrusha.github.io/connecticut-real-estate-analysis/analysis.html"><span class="owner">krrusha.github.io</span> / <span class="repo-name">connecticut-real-estate-analysis</span></a>
-        </div>
-        </div>
-        </div>
-        <p class="gh-desc">Analyzing trends in the Real Estate market of Connecticut, I learnt how the data highlights the effects of the 2008 financial crisis on Connecticut's properties. I drew other insights from this analysis including trends showing the current affordability concerns and its effect in reducing property demand.</p>
-        </article>
+              <li>
+                <div class="entry">
+                  <span class="ico">📄</span>
+                  <span class="label">
+                    <a href="https://github.com/krrusha/San-Francisco-Air-Traffic-Analysis/blob/main/analysis.html" target="_blank" rel="noopener">
+                      san-francisco-air-traffic-analysis
+                    </a>
+                  </span>
+                  <div class="desc">
+                    San Francisco passenger traffic analysis showing COVID-19 impact and a gradual recovery; includes airline popularity and transit trends.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
 
+          <li>
+            <div class="entry">
+              <span class="ico">📁</span>
+              <span class="label">powerbi</span>
+            </div>
 
-        <article class="gh-card">
-        <div class="gh-head">
-        <div class="gh-left">
-        <div class="gh-title">
-            <a class="repo" href="https://krrusha.github.io/san-francisco-air-traffic-analysis/analysis.html"><span class="owner">krrusha.github.io</span> / <span class="repo-name">san-francisco-air-traffic-analysis</span></a>
-        </div>
-        </div>
-        </div>
-        <p class="gh-desc">Analyzing the San Francisco Air Passenger traffic data, I observed how severly COVID-19 affected the travel numbers, and how the recovery to pre-pandemic highs is slow but gradual. I was able to create visualizations around the popularity trends of Airlines and SFO transit traffic in general.</p>
-        </article>
+            <ul>
+              <li>
+                <div class="entry">
+                  <span class="ico">📄</span>
+                  <span class="label">
+                    <a href="https://github.com/krrusha/MNC-HR-Data-Analysis" target="_blank" rel="noopener">
+                      mnc-hr-data-analysis
+                    </a>
+                  </span>
+                  <div class="desc">
+                    Workforce analytics project built in Power BI (data prep, modeling, and dashboards) to surface headcount and people insights.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
 
+          <li>
+            <div class="entry">
+              <span class="ico">📁</span>
+              <span class="label">excel</span>
+            </div>
 
-        <article class="gh-card">
-        <div class="gh-head">
-        <div class="gh-left">
-        <div class="gh-title">
-            <a class="repo" href="https://krrusha.github.io/workforce-analysis-powerbi#readme"><span class="owner">krrusha.github.io</span> / <span class="repo-name">workforce-analysis-powerbi</span></a>
-        </div>
-        </div>
-        </div>
-        <p class="gh-desc">Analyzing the San Francisco Air Passenger traffic data, I observed how severly COVID-19 affected the travel numbers, and how the recovery to pre-pandemic highs is slow but gradual. I was able to create visualizations around the popularity trends of Airlines and SFO transit traffic in general.</p>
-        </article>
+            <ul>
+              <li>
+                <div class="entry">
+                  <span class="ico">📄</span>
+                  <span class="label">
+                    <a href="https://github.com/krrusha/ESG-Financial-Performance-Analysis" target="_blank" rel="noopener">
+                      esg-financial-performance-analysis
+                    </a>
+                  </span>
+                  <div class="desc">
+                    ESG vs financial performance analysis built in Excel using a clean modeling workflow and pivot-driven insights.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
 
+        </ul>
+      </div>
+    </section>
 
-        <article class="gh-card">
-        <div class="gh-head">
-        <div class="gh-left">
-        <div class="gh-title">
-            <a class="repo" href="https://krrusha.github.io/esg-financial-performance-analysis#readme"><span class="owner">krrusha.github.io</span> / <span class="repo-name">esg-financial-performance-analysis</span></a>
-        </div>
-        </div>
-        </div>
-        <p class="gh-desc">Analyzing the San Francisco Air Passenger traffic data, I observed how severly COVID-19 affected the travel numbers, and how the recovery to pre-pandemic highs is slow but gradual. I was able to create visualizations around the popularity trends of Airlines and SFO transit traffic in general.</p>
-        </article>
   </main>
 </body>
 </html>
-
-
