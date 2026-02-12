@@ -8,237 +8,275 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
 
   <style>
-  :root{
-    --bg:#ffffff;
-    --fg:#111111;
-    --muted:#525252;
-    --border:#e9e9e9;
-    --maxw:760px;
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#525252;
+      --border:#e9e9e9;
+      --maxw:760px;
 
-    --tree-line:#d9d9d9;
-    --tree-text:#1a1a1a;
-    --tree-muted:#5d5d5d;
-  }
+      --tree-line:#d9d9d9;
+      --tree-text:#1a1a1a;
+      --tree-muted:#5d5d5d;
 
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    color:var(--fg);
-    background:var(--bg);
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-
-  .wrap{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:56px 24px 96px;
-  }
-
-  /* =========================
-     HEADER: left text + right photo (responsive)
-     ========================= */
-  .top{
-    display:flex;
-    align-items:flex-start;
-    gap:40px;
-  }
-  .top-left{
-    min-width:0;
-    flex:1 1 auto;
-  }
-
-  .profile-col{
-    flex:0 0 220px;
-    max-width:240px;
-  }
-
-  /* Blob border wrapper */
-  .photo-shell{
-    width:100%;
-    aspect-ratio:1/1;
-    padding:10px; /* border thickness */
-    background:#e6e6e6; /* border color */
-    border-radius: 58% 42% 46% 54% / 54% 46% 56% 44%;
-    box-shadow: 0 14px 34px rgba(0,0,0,.10);
-    transform: rotate(-2deg);
-    /* animation: floaty 4.2s ease-in-out infinite; */
-  }
-
-  .photo-blob{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    border-radius: 54% 46% 42% 58% / 50% 54% 46% 50%;
-    transform: rotate(2deg);
-  }
-
-  @keyframes floaty{
-    0%,100%{transform: rotate(-2deg) translateY(0)}
-    50%{transform: rotate(-2deg) translateY(-6px)}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .photo-shell{animation:none}
-  }
-
-  /* Stack photo on top for small screens */
-  @media (max-width:720px){
-    .top{flex-direction:column; gap:18px}
-    .profile-col{
-      order:-1; /* photo above text */
-      flex:0 0 auto;
-      max-width:100px;
-      width:min(100px, 72vw);
-      margin-bottom:-5px;
+      --link:#1f6feb;
     }
-  }
 
-  /* =========================
-     TYPOGRAPHY / HEADER CONTENT (ONE FONT EVERYWHERE)
-     ========================= */
-  .name{
-    font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    font-weight:800;
-    font-style:normal;
-    font-size:clamp(44px, 6.2vw, 78px); /* responsive */
-    line-height:0.95;
-    letter-spacing:-0.4px;
-    margin:8px 0 18px;
-  }
-  .name span{display:block}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--fg);
+      background:var(--bg);
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-  .blurb{
-    max-width:360px;
-    font-size:20px;
-    color:var(--muted);
-    margin:0 0 18px;
-  }
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:56px 24px 96px;
+    }
 
-  .social{margin:10px 0 8px}
-  .resume-link{
-    font-weight:600;
-    color:var(--gh-link,#1f6feb);
-    text-decoration:none;
-    border-bottom:1.5px solid currentColor
-  }
-  .resume-link:hover{opacity:.9}
 
-  .icons{
-    display:flex;
-    gap:18px;
-    margin:14px 0 18px;
-  }
-  .icon{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:32px;height:32px;
-    color:var(--fg);
-    text-decoration:none;
-    transition:transform .08s ease, background .2s ease;
-    overflow:hidden;
-    border-radius:8px;
-  }
-  .icon:hover{transform:translateY(-1px); background:#f7f7f7}
-  .icon img{width:22px;height:22px;display:block;object-fit:contain;aspect-ratio:1/1;transform:scale(1);transition:transform .15s ease}
-  .icon:hover img{transform:scale(1.2)}
+    .top{
+      display:flex;
+      align-items:flex-start;
+      gap:40px;
+    }
+    .top-left{
+      min-width:0;
+      flex:1 1 auto;
+    }
 
-  /* =========================
-     SECTION HEADER
-     ========================= */
-  .experiment-header{
-    font-family:"Cabin", system-ui;
-    font-weight:800;
-    letter-spacing:.3px;
-    font-size:26px;
-    margin:34px 0 10px;
-  }
+    .profile-col{
+      flex:0 0 220px;
+      max-width:240px;
+    }
 
-  /* =========================
-     VSCode-ish TREE (descriptions aligned with filename)
-     ========================= */
-  .tree-wrap{
-    position:relative;
-    margin-top:6px;
-    padding-top:10px;
-    border-top:1px solid var(--border);
-  }
-  .tree-wrap::before{
-    content:"";
-    position:absolute;
-    left:14px;
-    top:-14px;
-    height:18px;
-    border-left:1px solid var(--tree-line);
-  }
+    .photo-shell{
+      width:100%;
+      aspect-ratio:1/1;
+      padding:10px; /* border thickness */
+      background:#e6e6e6; /* border color */
+      border-radius: 58% 42% 46% 54% / 54% 46% 56% 44%;
+      box-shadow: 0 14px 34px rgba(0,0,0,.10);
+      transform: rotate(-2deg);
+    }
 
-  .tree{
-    color:var(--tree-text);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size:14px;
-  }
-  .tree ul{list-style:none;margin:0;padding-left:0}
-  .tree li{position:relative;padding:8px 0 8px 30px}
-  .tree li::before{
-    content:"";
-    position:absolute;
-    left:14px; top:0; bottom:0;
-    border-left:1px solid var(--tree-line);
-  }
-  .tree li::after{
-    content:"";
-    position:absolute;
-    left:14px; top:18px;
-    width:14px;
-    border-top:1px solid var(--tree-line);
-  }
-  .tree li:last-child::before{bottom:18px}
-  .tree ul ul{margin-left:14px;padding-left:10px}
+    .photo-blob{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      border-radius: 54% 46% 42% 58% / 50% 54% 46% 50%;
+      transform: rotate(2deg);
+    }
 
-  /* Grid so description aligns under filename text (not icon) */
-  .entry{
-    display:grid;
-    grid-template-columns:18px 1fr;
-    column-gap:8px;
-    align-items:center;
-    min-width:0;
-  }
-  .ico{width:18px;text-align:center;opacity:.95}
-  .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .label a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(17,17,17,.25)}
-  .label a:hover{border-bottom-color:rgba(17,17,17,.8)}
-  .desc{
-    grid-column:2;
-    margin-top:6px;
-    color:var(--tree-muted);
-    font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-    font-size:13.5px;
-    line-height:1.45;
-    max-width:620px;
-  }
+    
+    @media (max-width:720px){
+      .top{flex-direction:column; gap:18px}
+      .profile-col{
+        order:-1; /* photo above text */
+        flex:0 0 auto;
+        max-width:100px;
+        width:min(100px, 72vw);
+        margin-bottom:-5px;
+      }
+    }
 
-  /* Small tweaks */
-  @media (min-width:960px){
-    .wrap{padding-top:64px}
-  }
-  @media (max-width:420px){
-    .icons{gap:12px}
-  }
-</style>
+    .name{
+      font-weight:800;
+      font-size:clamp(44px, 6.2vw, 78px);
+      line-height:0.95;
+      letter-spacing:-0.4px;
+      margin:8px 0 18px;
+    }
+    .name span{display:block}
 
+    .blurb{
+      max-width:420px;
+      font-size:20px;
+      color:var(--muted);
+      margin:0 0 18px;
+    }
+
+    .social{margin:10px 0 8px}
+    .resume-link{
+      font-weight:700;
+      color:var(--link);
+      text-decoration:none;
+      border-bottom:1.5px solid currentColor;
+    }
+    .resume-link:hover{opacity:.9}
+
+    .icons{
+      display:flex;
+      gap:18px;
+      margin:14px 0 18px;
+    }
+    .icon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:32px;height:32px;
+      color:var(--fg);
+      text-decoration:none;
+      transition:transform .08s ease, background .2s ease;
+      overflow:hidden;
+      border-radius:8px;
+    }
+    .icon:hover{transform:translateY(-1px); background:#f7f7f7}
+    .icon img{width:22px;height:22px;display:block;object-fit:contain;aspect-ratio:1/1;transition:transform .15s ease}
+    .icon:hover img{transform:scale(1.2)}
+
+
+    .experiment-header{
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size:26px;
+      margin:34px 0 10px;
+    }
+
+    .tree-wrap{
+      position:relative;
+      margin-top:6px;
+      padding-top:10px;
+      border-top:1px solid var(--border);
+    }
+    .tree-wrap::before{
+      content:"";
+      position:absolute;
+      left:14px;
+      top:-14px;
+      height:18px;
+      border-left:1px solid var(--tree-line);
+    }
+
+    .tree{
+      color:var(--tree-text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:14px;
+    }
+    .tree ul{list-style:none;margin:0;padding-left:0}
+    .tree li{position:relative;padding:8px 0 8px 30px}
+    .tree li::before{
+      content:"";
+      position:absolute;
+      left:14px; top:0; bottom:0;
+      border-left:1px solid var(--tree-line);
+    }
+    .tree li::after{
+      content:"";
+      position:absolute;
+      left:14px; top:18px;
+      width:14px;
+      border-top:1px solid var(--tree-line);
+    }
+    .tree li:last-child::before{bottom:18px}
+    .tree ul ul{margin-left:14px;padding-left:10px}
+
+    
+    .entry{
+      display:grid;
+      grid-template-columns:18px 1fr;
+      column-gap:8px;
+      align-items:center;
+      min-width:0;
+    }
+    .ico{width:18px;text-align:center;opacity:.95}
+
+    .label{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      min-width:0;
+    }
+
+    
+    .label a.main-link{
+      color:inherit;
+      text-decoration:none;
+      border-bottom:1px solid rgba(17,17,17,.25);
+      flex:0 1 auto;
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .label a.main-link:hover{border-bottom-color:rgba(17,17,17,.8)}
+
+    
+    .meta-links{
+      display:inline-flex;
+      gap:10px;
+      flex:0 0 auto;
+      font-size:12px;
+      color:var(--tree-muted);
+      white-space:nowrap;
+      align-items:center;
+    }
+
+    .meta-links a.repo-icon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:22px;
+      height:22px;
+      border-radius:6px;
+      text-decoration:none;
+      border-bottom:none;         
+      background:transparent;
+      transition:transform .08s ease, background .2s ease;
+    }
+    
+    .meta-links a.repo-icon:hover{
+      transform:translateY(-1px);
+      background:#f7f7f7;          
+    }
+
+    .meta-links a.repo-icon img{
+      width:16px;
+      height:16px;
+      display:block;
+      object-fit:contain;
+      aspect-ratio:1/1;
+      transition:transform .15s ease;
+    }
+
+    .meta-links a.repo-icon:hover img{
+      transform:scale(1.2);
+    }
+
+    .desc{
+      grid-column:2;
+      margin-top:6px;
+      color:var(--tree-muted);
+      font-family:"Cabin", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      font-size:13.5px;
+      line-height:1.45;
+      max-width:620px;
+    }
+
+    @media (min-width:960px){
+      .wrap{padding-top:64px}
+    }
+    @media (max-width:420px){
+      .icons{gap:12px}
+    }
+  </style>
 </head>
 
 <body>
   <main class="wrap">
 
-    <!-- HEADER: Text on left, photo on right -->
+    <!-- HEADER -->
     <div class="top">
       <div class="top-left">
         <div class="name">
@@ -254,20 +292,19 @@
           <a class="resume-link" href="/resume.pdf" target="_blank" rel="noopener">View resume</a>
 
           <div class="icons" aria-label="Social links">
-            <a class="icon" href="https://www.linkedin.com/in/krusha--shah/" aria-label="LinkedIn">
-              <img src="https://github.com/krrusha/portfolio/blob/main/assets/linkedin.png" alt="LinkedIn" />
+            <a class="icon" href="https://www.linkedin.com/in/krusha--shah/" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <img src="assets/linkedin.png" alt="LinkedIn" />
             </a>
             <a class="icon" href="mailto:krusha.shah30@gmail.com" aria-label="Email">
-              <img src="https://github.com/krrusha/portfolio/blob/main/assets/mail.png" alt="Email" />
+              <img src="assets/mail.png" alt="Email" />
             </a>
-            <a class="icon" href="https://github.com/krrusha" aria-label="GitHub">
-              <img src="https://github.com/krrusha/portfolio/blob/main/assets/github.png" alt="GitHub" />
+            <a class="icon" href="https://github.com/krrusha" aria-label="GitHub" target="_blank" rel="noopener">
+              <img src="assets/github.png" alt="GitHub" />
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Replace src with your actual photo path/URL -->
       <aside class="profile-col" aria-label="Profile photo">
         <div class="photo-shell">
           <img class="photo-blob" src="assets/profile.jpg" alt="Profile photo of Krusha Shah" />
@@ -280,6 +317,7 @@
     <section class="tree-wrap" aria-label="Project hierarchy">
       <div class="tree">
         <ul>
+          <!-- PYTHON -->
           <li>
             <div class="entry">
               <span class="ico">📁</span>
@@ -291,12 +329,22 @@
                 <div class="entry">
                   <span class="ico">📄</span>
                   <span class="label">
-                    <a href="https://github.com/krrusha/Connecticut-Real-Estate-Analysis/blob/main/analysis.html" target="_blank" rel="noopener">
+                    <!-- MAIN LINK -> case study (index.html via GH Pages) -->
+                    <a class="main-link" href="https://krrusha.github.io/Connecticut-Real-Estate-Analysis/" target="_blank" rel="noopener">
                       connecticut-real-estate-analysis
                     </a>
+
+                    <!-- REPO LINK -> GitHub -->
+                    <span class="meta-links">
+                      <span>·</span>
+                      <a class="repo-icon" href="https://github.com/krrusha/Connecticut-Real-Estate-Analysis" target="_blank" rel="noopener" aria-label="GitHub repo">
+                        <img src="assets/github.png" alt="" />
+                      </a>
+                    </span>
                   </span>
+
                   <div class="desc">
-                    Analyzing trends in Connecticut real estate, including effects around the 2008 financial crisis and later affordability-driven demand shifts.
+                    Connecticut real estate market EDA in Python notebooks using pandas: cleaning, visualization and insights.
                   </div>
                 </div>
               </li>
@@ -305,18 +353,28 @@
                 <div class="entry">
                   <span class="ico">📄</span>
                   <span class="label">
-                    <a href="https://github.com/krrusha/San-Francisco-Air-Traffic-Analysis/blob/main/analysis.html" target="_blank" rel="noopener">
+                    <a class="main-link" href="https://krrusha.github.io/San-Francisco-Air-Traffic-Analysis/" target="_blank" rel="noopener">
                       san-francisco-air-traffic-analysis
                     </a>
+
+                    <span class="meta-links">
+                      <span>·</span>
+                      <a class="repo-icon" href="https://github.com/krrusha/San-Francisco-Air-Traffic-Analysis" target="_blank" rel="noopener" aria-label="GitHub repo">
+                        <img src="assets/github.png" alt="" />
+                        
+                      </a>
+                    </span>
                   </span>
+
                   <div class="desc">
-                    San Francisco passenger traffic analysis showing COVID-19 impact and a gradual recovery; includes airline popularity and transit trends.
+                    San Francisco air traffic EDA in Python notebooks using pandas with cleaning, visualization and insights.
                   </div>
                 </div>
               </li>
             </ul>
           </li>
 
+          <!-- POWER BI -->
           <li>
             <div class="entry">
               <span class="ico">📁</span>
@@ -328,18 +386,29 @@
                 <div class="entry">
                   <span class="ico">📄</span>
                   <span class="label">
-                    <a href="https://github.com/krrusha/MNC-HR-Data-Analysis" target="_blank" rel="noopener">
+                    <a class="main-link" href="https://krrusha.github.io/MNC-HR-Data-Analysis/" target="_blank" rel="noopener">
                       mnc-hr-data-analysis
                     </a>
+
+                    <span class="meta-links">
+                      <span>·</span>
+                      <a class="repo-icon" href="https://github.com/krrusha/MNC-HR-Data-Analysis" target="_blank" rel="noopener" aria-label="GitHub repo">
+                        <img src="assets/github.png" alt="" />
+                        
+                      </a>
+                    </span>
                   </span>
+
                   <div class="desc">
-                    Workforce analytics project built in Power BI (data prep, modeling, and dashboards) to surface headcount and people insights.
+                    Power BI project on a multinational company’s HR data with Power Query for cleaning and transformation,
+                    DAX measures and calculated columns for analysis, and interactive dashboards for visualization.
                   </div>
                 </div>
               </li>
             </ul>
           </li>
 
+          <!-- EXCEL -->
           <li>
             <div class="entry">
               <span class="ico">📁</span>
@@ -351,12 +420,89 @@
                 <div class="entry">
                   <span class="ico">📄</span>
                   <span class="label">
-                    <a href="https://github.com/krrusha/ESG-Financial-Performance-Analysis" target="_blank" rel="noopener">
+                    <a class="main-link" href="https://krrusha.github.io/ESG-Financial-Performance-Analysis/" target="_blank" rel="noopener">
                       esg-financial-performance-analysis
                     </a>
+
+                    <span class="meta-links">
+                      <span>·</span>
+                      <a class="repo-icon" href="https://github.com/krrusha/ESG-Financial-Performance-Analysis" target="_blank" rel="noopener" aria-label="GitHub repo">
+                        <img src="assets/github.png" alt="" />
+                        
+                      </a>
+                    </span>
                   </span>
+
                   <div class="desc">
-                    ESG vs financial performance analysis built in Excel using a clean modeling workflow and pivot-driven insights.
+                    ESG and financial performance analysis in Excel using Power Query for data prep, Power Pivot for modeling,
+                    PivotTable-based insights, and an interactive dashboard.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <!-- DATA PIPELINE -->
+          <li>
+            <div class="entry">
+              <span class="ico">📁</span>
+              <span class="label">data-pipeline</span>
+            </div>
+
+            <ul>
+              <li>
+                <div class="entry">
+                  <span class="ico">📄</span>
+                  <span class="label">
+                    <a class="main-link" href="https://krrusha.github.io/USGS-Earthquake-Data-Pipeline/" target="_blank" rel="noopener">
+                      usgs-earthquake-data-pipeline
+                    </a>
+
+                    <span class="meta-links">
+                      <span>·</span>
+                      <a class="repo-icon" href="https://github.com/krrusha/USGS-Earthquake-Data-Pipeline" target="_blank" rel="noopener" aria-label="GitHub repo">
+                        <img src="assets/github.png" alt="" />
+                        
+                      </a>
+                    </span>
+                  </span>
+
+                  <div class="desc">
+                    USGS earthquake data pipeline using GeoJSON feeds for ingestion, Postgres for event-level de-duplication,
+                    SQL for hourly/daily aggregates and grid heatmaps, and Power BI for live mapping and trends.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <!-- DATABRICKS -->
+          <li>
+            <div class="entry">
+              <span class="ico">📁</span>
+              <span class="label">databricks</span>
+            </div>
+
+            <ul>
+              <li>
+                <div class="entry">
+                  <span class="ico">📄</span>
+                  <span class="label">
+                    <a class="main-link" href="https://krrusha.github.io/Olist-Ecommerce-Lakehouse-Analytics/" target="_blank" rel="noopener">
+                      olist-ecommerce-lakehouse-analytics
+                    </a>
+
+                    <span class="meta-links">
+                      <span>·</span>
+                      <a class="repo-icon" href="https://github.com/krrusha/Olist-Ecommerce-Lakehouse-Analytics" target="_blank" rel="noopener" aria-label="GitHub repo">
+                        <img src="assets/github.png" alt="" />
+                      </a>
+                    </span>
+                  </span>
+
+                  <div class="desc">
+                    Databricks SQL lakehouse project analyzing revenue concentration, fulfillment delays, and review impact
+                    with an interactive 2-page dashboard.
                   </div>
                 </div>
               </li>
